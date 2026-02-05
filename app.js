@@ -11,6 +11,8 @@ const kpiConflicts = document.getElementById('kpi-conflicts');
 const btnDemo = document.getElementById('btn-demo');
 const tabButtons = document.querySelectorAll('.tab-btn');
 const tabPanels = document.querySelectorAll('.tab-panel');
+const employeePortalFrame = document.querySelector('#tab-employees iframe');
+const EMPLOYEE_PORTAL_URL = employeePortalFrame?.getAttribute('src') || '';
 
 const REQUIRED_SHEETS = ['PARAMS', 'EMPLOYEES', 'SHIFTS', 'ABSENCES', 'ASSIGNMENTS'];
 const DAY_KEYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
@@ -34,6 +36,10 @@ btnDemo.addEventListener('click', () => {
 tabButtons.forEach(btn => {
   btn.addEventListener('click', () => {
     const target = btn.dataset.tab;
+    if (target === 'employees' && EMPLOYEE_PORTAL_URL) {
+      window.location.href = EMPLOYEE_PORTAL_URL;
+      return;
+    }
     tabButtons.forEach(b => b.classList.toggle('active', b === btn));
     tabPanels.forEach(panel => {
       panel.classList.toggle('active', panel.id === `tab-${target}`);
