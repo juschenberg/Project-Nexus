@@ -33,12 +33,12 @@
   </header>
 
   <nav class="tabs">
-    <button class="tab-btn active" data-tab="plan">Schichtplan</button>
-    <button class="tab-btn" data-tab="employees">Mitarbeiter-Portal</button>
+    <button class="tab-btn" data-tab="plan">Schichtplan</button>
+    <button class="tab-btn active" data-tab="employees">Mitarbeiter-Portal</button>
   </nav>
 
   <main class="grid">
-    <section class="panel plan-panel tab-panel active" id="tab-plan">
+    <section class="panel plan-panel tab-panel" id="tab-plan">
       <h3>Wochenplan</h3>
       <div class="legend">
         <span class="dot ok"></span> Besetzt
@@ -49,9 +49,8 @@
       </div>
     </section>
 
-    <section class="panel plan-panel tab-panel" id="tab-employees">
+    <section class="panel plan-panel tab-panel active" id="tab-employees">
       <h3>Mitarbeiter‑Portal</h3>
-      <p class="meta">Läuft lokal unter <code>http://127.0.0.1:5000</code></p>
       <div class="iframe-wrap">
         <iframe src="http://127.0.0.1:5000" title="Mitarbeiter-Portal"></iframe>
       </div>
