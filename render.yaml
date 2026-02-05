@@ -1,0 +1,8 @@
+services:
+  - type: web
+    name: project-nexus-employee-portal
+    env: python
+    rootDir: Morsch/bakery_mvp_web
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    autoDeploy: true
