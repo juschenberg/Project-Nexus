@@ -45,7 +45,7 @@ body {
   font-family: "Fraunces", serif;
   font-size: clamp(36px, 5vw, 64px);
   margin: 8px 0 10px;
-  color: #1e5bbf;
+  color: #000;
 }
 
 .eyebrow {
