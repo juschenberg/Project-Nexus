@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+.env.*
+.vscode/
+.idea/
+.DS_Store
+bakery.db
+.venv/
+Morsch/bakery_mvp_web/.venv/

@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+{% block content %}
+<section class="card calendar-card">
+  <div class="card-header">
+    <h2>Kalenderübersicht</h2>
+    <div class="week-nav">
+      <a class="nav-btn" href="{{ url_for('overview', week=nav.prev) }}">‹</a>
+      <span class="week-label">KW {{ week_value.split('-W')[1] }} / {{ week_value.split('-W')[0] }}</span>
+      <a class="nav-btn" href="{{ url_for('overview', week=nav.next) }}">›</a>
+    </div>
+  </div>
+  <p class="muted">Klicke einen Tag, um frei/Schicht zu wechseln.{% if role == 'service' %} (Service: früh → spät → frei){% endif %}</p>
+  <div class="calendar" data-role="{{ role }}" data-week="{{ week_value }}">
+    <div class="time-col">
+      <div class="time-head"></div>
+      {% for hour in range(0, 25) %}
+        {% if hour % 2 == 0 %}
+          <div class="time-slot">{{ '%02d' % hour }}:00</div>
+        {% else %}
+          <div class="time-slot empty"></div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    {% for day in weekdays %}
+      <div class="day-col">
+        <div class="day-head">
+          <span class="day-num">{{ day_numbers[day] }}</span>
+          <span class="day-name">{{ day }}</span>
+        </div>
+        <div class="day-body" data-day="{{ day }}" data-current="{{ slots[day] }}">
+          {% for box in slot_boxes %}
+            {% set overlap_class = '' %}
+            {% if role == 'service' and box.slot == 'early' %}{% set overlap_class = ' overlap-left' %}{% endif %}
+            {% if role == 'service' and box.slot == 'late' %}{% set overlap_class = ' overlap-right' %}{% endif %}
+            <div class="slot-option{{ overlap_class }}{% if slots[day] == box.slot %} selected{% endif %}"
+                 data-slot="{{ box.slot }}"
+                 style="top: calc({{ box.top }} * var(--minute)); height: calc({{ box.height }} * var(--minute));">
+              {{ box.label }}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<script>
+  const cal = document.querySelector('.calendar');
+  if (cal) {
+    cal.querySelectorAll('.slot-option').forEach((el) => {
+      el.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        const day = el.closest('.day-body').dataset.day;
+        const slot = el.dataset.slot;
+        if (!slot) return;
+        await fetch('/overview', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ day, action: 'set', week: cal.dataset.week, slot })
+        });
+        window.location.reload();
+      });
+    });
+  }
+</script>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block content %}
+<section class="card">
+  <h2>Arbeitswünsche – {{ employee['name'] }}</h2>
+  <p class="muted">ID: <span class="mono">{{ employee['id'] }}</span></p>
+  <form method="post">
+    <div class="prefs-grid">
+      {% for day in weekdays %}
+        <div class="pref-row">
+          <div class="day">{{ day }}</div>
+          <label>
+            <input type="radio" name="{{ day }}" value="no" {% if prefs[day] == 'no' %}checked{% endif %} />
+            no
+          </label>
+          <label>
+            <input type="radio" name="{{ day }}" value="yes" {% if prefs[day] == 'yes' %}checked{% endif %} />
+            yes
+          </label>
+          <label>
+            <input type="radio" name="{{ day }}" value="prefer" {% if prefs[day] == 'prefer' %}checked{% endif %} />
+            prefer
+          </label>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="actions">
+      <button type="submit">Speichern</button>
+      <a class="button-link" href="{{ url_for('employees') }}">Zurück</a>
+    </div>
+  </form>
+</section>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+{% block content %}
+<section class="card auth-card">
+  <h2>Mitarbeiter anlegen</h2>
+  <form method="post" class="form-stack">
+    <input type="hidden" name="stage" value="create" />
+    <input type="hidden" name="gate_ok" value="{{ '1' if gate_ok else '' }}" />
+    <label>Name
+      <input type="text" name="name" required />
+    </label>
+    <label>Rolle
+      <select name="role" required>
+        <option value="">Bitte wählen</option>
+        <option value="baker">Bäcker (03:00–11:00)</option>
+        <option value="service">Service (06:00–14:30 oder 10:00–18:00)</option>
+      </select>
+    </label>
+    <label>Anstellungsart
+      <select name="contract_type" required>
+        <option value="">Bitte wählen</option>
+        <option value="FullTime">FullTime</option>
+        <option value="PartTime">PartTime</option>
+        <option value="Minijob">Minijob</option>
+        <option value="Apprentice">Apprentice</option>
+      </select>
+    </label>
+    <label>Arbeitsstunden pro Woche
+      <input type="number" name="weekly_hours" min="0" max="80" step="1" required />
+    </label>
+    <label>Maximale Arbeitsstunden pro Tag
+      <input type="number" name="max_hours_per_day" min="1" max="24" step="1" required />
+    </label>
+    <label>Sonntags arbeiten
+      <select name="can_work_sun" required>
+        <option value="">Bitte wählen</option>
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select>
+    </label>
+    <label>Stundensatz
+      <input type="number" name="hourly_salary" min="0" step="0.01" required />
+    </label>
+    <button type="submit">Anlegen</button>
+  </form>
+  <p><a class="action-link" href="{{ url_for('login') }}">Zurück zum Login</a></p>
+</section>
+{% endblock %}

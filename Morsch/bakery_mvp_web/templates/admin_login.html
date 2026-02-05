@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block content %}
+<section class="card auth-card">
+  <h2>Admin</h2>
+  <form method="post" class="form-stack">
+    <label>Admin-Passwort
+      <input type="password" name="admin_password" required />
+    </label>
+    <button type="submit">Weiter</button>
+  </form>
+  <p><a class="action-link" href="{{ url_for('login') }}">Zurück zum Login</a></p>
+</section>
+{% endblock %}

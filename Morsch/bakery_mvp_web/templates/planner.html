@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% block content %}
+<section class="planner-hero">
+  <div class="planner-head">
+    <div>
+      <p class="eyebrow">Bäckerei • Schichtplanung</p>
+      <h2>Schichtplan</h2>
+      <p class="subtitle">Automatische Wochenplanung aus Excel + Mitarbeiter‑Preferences.</p>
+      <div class="cta-row">
+        <button class="primary" id="btn-source-top">Daten laden</button>
+        <button class="ghost" id="btn-demo">Demo-Daten</button>
+      </div>
+    </div>
+    <div class="planner-card">
+      <h3>Diese Woche</h3>
+      <ul class="kpis">
+        <li><span id="kpi-employees">–</span><small>Mitarbeiter</small></li>
+        <li><span id="kpi-shifts">–</span><small>Schichten</small></li>
+        <li><span id="kpi-conflicts">–</span><small>Konflikte</small></li>
+      </ul>
+      <div class="hint">Quelle: <strong>/static/data/Baeckerei_Workflow_Input.xlsx</strong></div>
+      <div class="meta" id="input-meta">Noch keine Datei geladen.</div>
+      <div class="status-log" id="status-log"></div>
+      <div class="meta" id="api-meta">API: nicht konfiguriert</div>
+    </div>
+  </div>
+</section>
+
+<section class="card planner-card">
+  <h3>Wochenplan</h3>
+  <div class="legend">
+    <span class="dot ok"></span> Besetzt
+    <span class="dot warn"></span> Unterbesetzt
+  </div>
+  <div class="schedule" id="schedule">
+    <div class="schedule-empty">Noch kein Plan generiert.</div>
+  </div>
+</section>
+
+<script src="/static/vendor/xlsx.full.min.js"></script>
+<script src="/static/planner.js"></script>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block content %}
+<section class="card auth-card">
+  <h2>Admin-Zugang</h2>
+  <form method="post" class="form-stack">
+    <input type="hidden" name="stage" value="gate" />
+    <label>Admin-Passwort
+      <input type="password" name="admin_password" required />
+    </label>
+    <button type="submit">Weiter</button>
+  </form>
+  <p class="muted">Nur Admins können neue Mitarbeitende anlegen.</p>
+  <p><a class="action-link" href="{{ url_for('login') }}">Zurück zum Login</a></p>
+</section>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block content %}
+<section class="card auth-card">
+  <h2>Login</h2>
+  <form method="post" class="form-stack">
+    <label>Name
+      <input type="text" name="name" required />
+    </label>
+    <label>Mitarbeiter-ID
+      <input type="text" name="employee_id" required />
+    </label>
+    <button type="submit">Einloggen</button>
+  </form>
+  <p class="muted">Noch kein Zugang? <a class="action-link" href="{{ url_for('register') }}">Mitarbeiter anlegen</a></p>
+</section>
+{% endblock %}

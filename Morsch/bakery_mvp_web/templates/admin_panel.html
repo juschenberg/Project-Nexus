@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% block content %}
+<section class="card auth-card">
+  <h2>Admin</h2>
+  <div class="actions">
+    <a class="button-link" href="{{ url_for('register') }}">Mitarbeiter anlegen</a>
+    <a class="button-link" href="{{ url_for('logout') }}">Logout</a>
+  </div>
+</section>
+
+<section class="card admin-table-card">
+  <h2>Mitarbeiterübersicht</h2>
+  {% if employees %}
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>ContractType</th>
+          <th>WeeklyHours</th>
+          <th>MaxHoursPerDay</th>
+          <th>CanWorkSun</th>
+          <th>Job</th>
+          <th>HourlySalary</th>
+          <th>ID</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for emp in employees %}
+          <tr>
+            <td>{{ emp['name'] }}</td>
+            <td>{{ emp['contract_type'] or '-' }}</td>
+            <td>{{ emp['weekly_hours'] if emp['weekly_hours'] is not none else '-' }}</td>
+            <td>{{ emp['max_hours_per_day'] if emp['max_hours_per_day'] is not none else '-' }}</td>
+            <td>{{ 'Yes' if emp['can_work_sun'] == 1 else 'No' }}</td>
+            <td>{{ 'Bäcker' if emp['role'] == 'baker' else 'Service' }}</td>
+            <td>{{ emp['hourly_salary'] if emp['hourly_salary'] is not none else '-' }}</td>
+            <td class="mono">{{ emp['id'] }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>Keine Mitarbeiter vorhanden.</p>
+  {% endif %}
+</section>
+{% endblock %}

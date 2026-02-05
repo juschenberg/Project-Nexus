@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ title or "Bäckerei – Arbeitswünsche" }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <div class="header-bar">
+        <h1 class="brand">Projekt Nexus</h1>
+        {% if session.get('employee_id') %}
+          {% set emp = current_employee() %}
+          {% if emp %}
+            <div class="user-meta">
+              <div class="user-name">{{ emp['name'] }}</div>
+              <div class="user-sub">ID: <span class="mono">{{ emp['id'] }}</span></div>
+              <div class="user-sub">Rolle: {{ 'Bäcker' if emp['role'] == 'baker' else 'Service' }}</div>
+            </div>
+          {% endif %}
+        {% endif %}
+      </div>
+      <nav>
+        {% if session.get('employee_id') %}
+          <a href="{{ url_for('planner') }}">Schichtplan</a>
+          <a href="{{ url_for('overview') }}">Übersicht</a>
+          <a href="{{ url_for('logout') }}">Logout</a>
+        {% else %}
+          <a href="{{ url_for('planner') }}">Schichtplan</a>
+          <a href="{{ url_for('login') }}">Login</a>
+          <a href="{{ url_for('register') }}">Register</a>
+          <a href="{{ url_for('admin') }}">Admin</a>
+        {% endif %}
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-list">
+          {% for category, message in messages %}
+            {% set extra = ' welcome' if 'Willkommen' in message else '' %}
+            <div class="flash {{ category }}{{ extra }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">MVP – lokale Vorschau</div>
+  </footer>
+</body>
+</html>
